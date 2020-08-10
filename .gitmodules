@@ -1,0 +1,9 @@
+[submodule ".emacs.d"]
+	path = .emacs.d
+	url = https://github.com/syl20bnr/spacemacs
+[submodule "extra_plugin/emacs-vim-modeline"]
+	path = extra_plugin/emacs-vim-modeline
+	url = http://github.com/cinsk/emacs-vim-modeline.git
+[submodule "extra_plugin/evil"]
+	path = extra_plugin/evil
+	url = https://github.com/emacs-evil/evil.git
