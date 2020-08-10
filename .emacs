@@ -9,7 +9,7 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/"))
+             '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 
 (add-to-list 'load-path "~/.emacs.d/extra/emacs-vim-modeline")
@@ -18,10 +18,10 @@
 
 (global-linum-mode t)
 
-(load-theme 'abyss t)
+(load-theme 'molokai t)
 
+(add-to-list 'load-path "~/.emacs.d/extra/extra")
 
-(add-to-list 'load-path "~/.emacs.d/extra")
 (require 'sr-speedbar)
 (setq speedbar-show-unknown-files t)
 (setq speedbar-use-images nil)
