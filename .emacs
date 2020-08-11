@@ -18,7 +18,8 @@
 
 (global-linum-mode t)
 
-(load-theme 'molokai t)
+;; (load-theme 'molokai t)
+(load-theme 'wombat t)
 
 (add-to-list 'load-path "~/.emacs.d/extra/extra")
 
