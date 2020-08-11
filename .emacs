@@ -9,7 +9,7 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
 (add-to-list 'load-path "~/.emacs.d/extra/emacs-vim-modeline")
@@ -36,14 +36,11 @@
 ;; remove all keybindings from insert-state keymap, use emacs-state when editing
 (setcdr evil-insert-state-map nil)
 
-
 ;; ESC to switch back normal-state
 (define-key evil-insert-state-map [escape] 'evil-normal-state)
 
-
 ;; TAB to indent in normal-state
-(define-key evil-normal-state-map (kbd "TAB") 'indent-for-tab-command)
-
+;;(define-key evil-normal-state-map (kbd "TAB") 'indent-for-tab-command)
 
 ;; Use j/k to move one visual line insted of gj/gk
 (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>") 'evil-next-visual-line)
@@ -126,10 +123,51 @@
     ("c3c0a3702e1d6c0373a0f6a557788dfd49ec9e66e753fb24493579859c8e95ab" "d8dc153c58354d612b2576fea87fe676a3a5d43bcc71170c62ddde4a1ad9e1fb" default)))
  '(package-selected-packages
    (quote
-    (abyss-theme ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (powerline paradox spinner lv parent-mode projectile pkg-info epl flx f highlight smartparens iedit anzu evil goto-chg undo-tree dash s bind-map bind-key packed helm avy helm-core popup async ## abyss-theme ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; 打开 org-indent mode
+(setq org-startup-indented t)
+
+;; 设置 todo keywords
+(setq org-todo-keywords '((sequence "TODO" "HAND" "|" "DONE")))
+
+;; 调试好久的颜色，效果超赞！todo keywords 增加背景色
+(setf org-todo-keyword-faces '(("TODO" . (:foreground "white" :background "#95A5A6" :weight bold))
+                               ("HAND" . (:foreground "white" :background "#2E8B57" :weight bold))
+                               ("DONE" . (:foreground "white" :background "#3498DB" :weight bold))))
+
+;; agenda 里面时间块彩色显示
+;; From: https://emacs-china.org/t/org-agenda/8679/3
+(defun ljg/org-agenda-time-grid-spacing ()
+  "Set different line spacing w.r.t. time duration."
+  (save-excursion
+    (let* ((background (alist-get 'background-mode (frame-parameters)))
+           (background-dark-p (string= background "dark"))
+           (colors (list "#1ABC9C" "#2ECC71" "#3498DB" "#9966ff"))
+           pos
+           duration)
+      (nconc colors colors)
+      (goto-char (point-min))
+      (while (setq pos (next-single-property-change (point) 'duration))
+             (goto-char pos)
+             (when (and (not (equal pos (point-at-eol)))
+                        (setq duration (org-get-at-bol 'duration)))
+               (let ((line-height (if (< duration 30) 1.0 (+ 0.5 (/ duration 60))))
+                     (ov (make-overlay (point-at-bol) (1+ (point-at-eol)))))
+                 (overlay-put ov 'face `(:background ,(car colors)
+                                                     :foreground
+                                                     ,(if background-dark-p "black" "white")))
+                 (setq colors (cdr colors))
+                 (overlay-put ov 'line-height line-height)
+                 (overlay-put ov 'line-spacing (1- line-height))))))))
+
+(add-hook 'org-agenda-finalize-hook #'ljg/org-agenda-time-grid-spacing)
+
+(global-set-key (kbd "C-c c") 'org-capture)
+(setq org-default-notes-file "~/self/org/orgmode.org")
