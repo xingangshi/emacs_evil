@@ -265,3 +265,8 @@
 (add-to-list 'org-capture-templates
              '("c" "Contacts" entry (file "~/Dropbox/org/contacts.org")
                "* %^{姓名} %^{手机号}p %^{邮箱}p %^{住址}p\n\n  %?" :empty-lines 1))
+
+(org-babel-do-load-languages
+   'org-babel-load-languages
+    '((python . t)
+      (C . c)))
