@@ -56,7 +56,7 @@
 (defun update-title ()
   (interactive)
   (if (getenv "STY")    ; check whether in GNU screen
-      (send-string-to-terminal (concat "\033k\033\134\033k" "Emacs("(buffer-name)")" "\033\134"))
+    (send-string-to-terminal (concat "\033k\033\134\033k" "Emacs("(buffer-name)")" "\033\134"))
     (send-string-to-terminal (concat "\033]2; " "Emacs("(buffer-name)")" "\007"))))
 (add-hook 'post-command-hook 'update-title)
 
@@ -64,27 +64,27 @@
 ;; Use xsel to access the X clipboard
 ;; From https://hugoheden.wordpress.com/2009/03/08/copypaste-with-emacs-in-terminal/
 (unless window-system
- (when (getenv "DISPLAY")
-   ;; Callback for when user cuts
-   (defun xsel-cut-function (text &optional push)
-     ;; Insert text to temp-buffer, and "send" content to xsel stdin
-     (with-temp-buffer
-       (insert text)
-       ;; Use primary the primary selection
-       ;; mouse-select/middle-button-click
-       (call-process-region (point-min) (point-max) "xsel" nil 0 nil "--primary" "--input")))
-   ;; Call back for when user pastes
-   (defun xsel-paste-function()
-     ;; Find out what is current selection by xsel. If it is different
-     ;; from the top of the kill-ring (car kill-ring), then return
-     ;; it. Else, nil is returned, so whatever is in the top of the
-     ;; kill-ring will be used.
-     (let ((xsel-output (shell-command-to-string "xsel --primary --output")))
-       (unless (string= (car kill-ring) xsel-output)
-     xsel-output)))
-   ;; Attach callbacks to hooks
-   (setq interprogram-cut-function 'xsel-cut-function)
-   (setq interprogram-paste-function 'xsel-paste-function)))
+  (when (getenv "DISPLAY")
+    ;; Callback for when user cuts
+    (defun xsel-cut-function (text &optional push)
+      ;; Insert text to temp-buffer, and "send" content to xsel stdin
+      (with-temp-buffer
+        (insert text)
+        ;; Use primary the primary selection
+        ;; mouse-select/middle-button-click
+        (call-process-region (point-min) (point-max) "xsel" nil 0 nil "--primary" "--input")))
+    ;; Call back for when user pastes
+    (defun xsel-paste-function()
+      ;; Find out what is current selection by xsel. If it is different
+      ;; from the top of the kill-ring (car kill-ring), then return
+      ;; it. Else, nil is returned, so whatever is in the top of the
+      ;; kill-ring will be used.
+      (let ((xsel-output (shell-command-to-string "xsel --primary --output")))
+        (unless (string= (car kill-ring) xsel-output)
+          xsel-output)))
+    ;; Attach callbacks to hooks
+    (setq interprogram-cut-function 'xsel-cut-function)
+    (setq interprogram-paste-function 'xsel-paste-function)))
 
 
 ;; Mimic Vim's set paste
@@ -94,50 +94,50 @@
 (defun ttypaste-mode ()
   (interactive)
   (let ((buf (current-buffer))
-    (ttypaste-mode t))
+        (ttypaste-mode t))
     (with-temp-buffer
       (let ((stay t)
-        (text (current-buffer)))
-    (redisplay)
-    (while stay
-      (let ((char (let ((inhibit-redisplay t)) (read-event nil t 0.1))))
-        (unless char
-          (with-current-buffer buf (insert-buffer-substring text))
-          (erase-buffer)
-          (redisplay)
-          (setq char (read-event nil t)))
-        (cond
-         ((not (characterp char)) (setq stay nil))
-         ((eq char ?\r) (insert ?\n))
-         ((eq char ?\e)
-          (if (sit-for 0.1 'nodisp) (setq stay nil) (insert ?\e)))
-         (t (insert char)))))
-    (insert-buffer-substring text)))))
+            (text (current-buffer)))
+        (redisplay)
+        (while stay
+               (let ((char (let ((inhibit-redisplay t)) (read-event nil t 0.1))))
+                 (unless char
+                   (with-current-buffer buf (insert-buffer-substring text))
+                   (erase-buffer)
+                   (redisplay)
+                   (setq char (read-event nil t)))
+                 (cond
+                   ((not (characterp char)) (setq stay nil))
+                   ((eq char ?\r) (insert ?\n))
+                   ((eq char ?\e)
+                    (if (sit-for 0.1 'nodisp) (setq stay nil) (insert ?\e)))
+                   (t (insert char)))))
+        (insert-buffer-substring text)))))
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("c3c0a3702e1d6c0373a0f6a557788dfd49ec9e66e753fb24493579859c8e95ab" "d8dc153c58354d612b2576fea87fe676a3a5d43bcc71170c62ddde4a1ad9e1fb" default)))
- '(org-agenda-files (quote ("~/self/org/orgmode.org")))
- '(package-selected-packages
-   (quote
-    (powerline paradox spinner lv parent-mode projectile pkg-info epl flx f highlight smartparens iedit anzu evil goto-chg undo-tree dash s bind-map bind-key packed helm avy helm-core popup async ## abyss-theme ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+  '(custom-safe-themes
+     (quote
+       ("c3c0a3702e1d6c0373a0f6a557788dfd49ec9e66e753fb24493579859c8e95ab" "d8dc153c58354d612b2576fea87fe676a3a5d43bcc71170c62ddde4a1ad9e1fb" default)))
+  '(org-agenda-files (quote ("~/self/org/orgmode.org")))
+  '(package-selected-packages
+     (quote
+       (molokai-theme powerline paradox spinner lv parent-mode projectile pkg-info epl flx f highlight smartparens iedit anzu evil goto-chg undo-tree dash s bind-map bind-key packed helm avy helm-core popup async ## abyss-theme ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  )
 
 ;; 打开 org-indent mode
 (setq org-startup-indented t)
 
 ;; 设置 todo keywords
-(setq org-todo-keywords '((sequence "TODO" "HAND" "|" "DONE")))
+(setq org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELLED(c@)")))
 
 ;; 调试好久的颜色，效果超赞！todo keywords 增加背景色
 (setf org-todo-keyword-faces '(("TODO" . (:foreground "white" :background "#95A5A6" :weight bold))
@@ -172,10 +172,96 @@
 (add-hook 'org-agenda-finalize-hook #'ljg/org-agenda-time-grid-spacing)
 
 (global-set-key (kbd "C-c c") 'org-capture)
-(setq org-default-notes-file "~/self/org/orgmode.org")
-
+(global-set-key (kbd "C-c a a") 'org-agenda)
+(setq org-default-notes-file
+      '("~/self/org/orgmode.org"))
 (use-package org-bullets
   :hook (org-mode . org-bullets-mode)
   :config
   ;;(setq org-bullets-bullet-list '("■" "◆" "▲" "▶")))
-  (setq org-bullets-bullet-list '("◉" "❖" "✮" "✱" "✸")))
+  (setq org-bullets-bullet-list '("◉" "❖" "✮" "✱" "✸" "■" "◆" "▲" "▶")))
+
+(setq org-tag-alist '(
+                     (:startgroup . nil)
+                        ("工作" . ?w)
+                        ("公众号" . ?g)
+                     (:endgroup . nil)
+                     ("疫苗" . ?y)
+                     ("磐石" . ?p)
+                     ("技术" . ?j)
+                     ("生日" . ?s)
+                     ("读书" . ?d)
+                     ("提升" . ?t)
+                    ))
+
+;; 记录时间
+(setq org-log-done 'time)
+;; 记录提示信息
+(setq org-log-done 'note)
+
+(setq org-capture-templates nil)
+
+(add-to-list 'org-capture-templates
+             '("r" "Book Reading Task" entry
+               (file+olp "~/self/org/task.org" "Reading" "Book")
+               "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
+
+(add-to-list 'org-capture-templates
+             '("w" "Work Task" entry
+               (file+headline "~/slef/org/task.org" "Work")
+               "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
+
+(add-to-list 'org-capture-templates
+             '("w" "Web Collections" entry
+               (file+headline "~/self/org/inbox.org" "Web")
+               "* %U %:annotation\n\n%:initial\n\n%?"))
+
+(add-to-list 'org-capture-templates '("t" "Tasks"))
+(add-to-list 'org-capture-templates
+             '("tr" "Book Reading Task" entry
+               (file+olp "~/self/org/task.org" "Reading" "Book")
+               "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
+(add-to-list 'org-capture-templates
+             '("tw" "Work Task" entry
+               (file+headline "~/self/org/task.org" "Work")
+               "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
+
+(add-to-list 'org-capture-templates
+             '("j" "Journal" entry (file "~/self/org/journal.org")
+               "* %U - %^{heading}\n  %?"))
+
+(add-to-list 'org-capture-templates
+             '("b" "Billing" plain
+               (file+function "~/self/org/billing.org" find-month-tree)
+               " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
+
+(defun get-year-and-month ()
+  (list (format-time-string "%Y年") (format-time-string "%m月")))
+
+
+(defun find-month-tree ()
+  (let* ((path (get-year-and-month))
+         (level 1)
+         end)
+    (unless (derived-mode-p 'org-mode)
+      (error "Target buffer \"%s\" should be in Org mode" (current-buffer)))
+    (goto-char (point-min))             ;移动到 buffer 的开始位置
+    ;; 先定位表示年份的 headline，再定位表示月份的 headline
+    (dolist (heading path)
+      (let ((re (format org-complex-heading-regexp-format
+                        (regexp-quote heading)))
+            (cnt 0))
+        (if (re-search-forward re end t)
+          (goto-char (point-at-bol))  ;如果找到了 headline 就移动到对应的位置
+          (progn                      ;否则就新建一个 headline
+            (or (bolp) (insert "\n"))
+            (if (/= (point) (point-min)) (org-end-of-subtree t t))
+            (insert (make-string level ?*) " " heading "\n"))))
+      (setq level (1+ level))
+      (setq end (save-excursion (org-end-of-subtree t t))))
+    (org-end-of-subtree)))
+
+
+(add-to-list 'org-capture-templates
+             '("c" "Contacts" entry (file "~/Dropbox/org/contacts.org")
+               "* %^{姓名} %^{手机号}p %^{邮箱}p %^{住址}p\n\n  %?" :empty-lines 1))
