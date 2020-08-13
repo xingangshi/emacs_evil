@@ -233,7 +233,8 @@
 (add-to-list 'org-capture-templates
              '("b" "Billing" plain
                (file+function "~/self/org/billing.org" find-month-tree)
-               " | %U | %^{类别} | %^{描述} | %^{金额} |" :kill-buffer t))
+               "\t\t\t%u * %^{消费描述} \n\t消费: %^{消费类型}\t\t\t%^{ } 元\n\t收入: %^{收入类型}\t\t\t%^{ } 元\n\t账户: %^{账户类型}\n\n" :clock-in t))
+
 
 (defun get-year-and-month ()
   (list (format-time-string "%Y年") (format-time-string "%m月")))
@@ -263,10 +264,11 @@
 
 
 (add-to-list 'org-capture-templates
-             '("c" "Contacts" entry (file "~/Dropbox/org/contacts.org")
+             '("c" "Contacts" entry (file "~/self/org/contacts.org")
                "* %^{姓名} %^{手机号}p %^{邮箱}p %^{住址}p\n\n  %?" :empty-lines 1))
 
 (org-babel-do-load-languages
    'org-babel-load-languages
     '((python . t)
-      (C . c)))
+      (ledger . t)
+      (C . t)))
