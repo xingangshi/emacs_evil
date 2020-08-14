@@ -122,7 +122,12 @@
   '(custom-safe-themes
      (quote
        ("c3c0a3702e1d6c0373a0f6a557788dfd49ec9e66e753fb24493579859c8e95ab" "d8dc153c58354d612b2576fea87fe676a3a5d43bcc71170c62ddde4a1ad9e1fb" default)))
-  '(org-agenda-files (quote ("~/self/org/orgmode.org")))
+  '(org-agenda-files (quote (
+                       "~/self/org/1_note.org"
+                       "~/self/org/2_ledger.org"
+                       "~/self/org/3_task.org"
+                       "~/self/org/4_inbox.org"
+                       )))
   '(package-selected-packages
      (quote
        (molokai-theme powerline paradox spinner lv parent-mode projectile pkg-info epl flx f highlight smartparens iedit anzu evil goto-chg undo-tree dash s bind-map bind-key packed helm avy helm-core popup async ## abyss-theme ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
@@ -174,7 +179,7 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c a a") 'org-agenda)
 (setq org-default-notes-file
-      '("~/self/org/orgmode.org"))
+      '("~/self/org/1_note.org"))
 (use-package org-bullets
   :hook (org-mode . org-bullets-mode)
   :config
@@ -202,33 +207,30 @@
 (setq org-capture-templates nil)
 
 (add-to-list 'org-capture-templates
-             '("r" "Book Reading Task" entry
-               (file+olp "~/self/org/task.org" "Reading" "Book")
+             '("n" "日常记事" entry
+               (file+headline "~/self/org/1_note.org" "记事")
+               "* %u %^{事情描述} \t\t:%^{关联人脉或者事件}:\n"))
+
+(add-to-list 'org-capture-templates
+             '("w" "网址收集" entry
+               (file+headline "~/self/org/4_inbox.org" "网站")
+               "* %U %^{备注} \t\t%:annotation%:initial%?"))
+
+(add-to-list 'org-capture-templates '("t" "计划"))
+(add-to-list 'org-capture-templates
+             '("tr" "读书计划" entry
+               (file+olp "~/self/org/3_task.org" "读书计划" "想读")
                "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
 
 (add-to-list 'org-capture-templates
-             '("w" "Work Task" entry
-               (file+headline "~/slef/org/task.org" "Work")
+             '("ts" "学习计划" entry
+               (file+olp "~/self/org/3_task.org" "Reading" "Book")
+               "* TODO %^{学习内容}\n%u\n%a\n" :clock-in t :clock-resume t))
+
+(add-to-list 'org-capture-templates
+             '("tw" "工作计划" entry
+               (file+headline "~/self/org/3_task.org" "工作相关")
                "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
-
-(add-to-list 'org-capture-templates
-             '("w" "Web Collections" entry
-               (file+headline "~/self/org/inbox.org" "Web")
-               "* %U %:annotation\n\n%:initial\n\n%?"))
-
-(add-to-list 'org-capture-templates '("t" "Tasks"))
-(add-to-list 'org-capture-templates
-             '("tr" "Book Reading Task" entry
-               (file+olp "~/self/org/task.org" "Reading" "Book")
-               "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
-(add-to-list 'org-capture-templates
-             '("tw" "Work Task" entry
-               (file+headline "~/self/org/task.org" "Work")
-               "* TODO %^{任务名}\n%u\n%a\n" :clock-in t :clock-resume t))
-
-(add-to-list 'org-capture-templates
-             '("j" "Journal" entry (file "~/self/org/journal.org")
-               "* %U - %^{heading}\n  %?"))
 
 (add-to-list 'org-capture-templates '("b" "记账 "))
 (add-to-list 'org-capture-templates
