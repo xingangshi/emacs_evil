@@ -230,11 +230,15 @@
              '("j" "Journal" entry (file "~/self/org/journal.org")
                "* %U - %^{heading}\n  %?"))
 
+(add-to-list 'org-capture-templates '("b" "记账 "))
 (add-to-list 'org-capture-templates
-             '("b" "Billing" plain
+             '("bc" "消费" plain
                (file+function "~/self/org/billing.org" find-month-tree)
-               "\t\t\t%u * %^{消费描述} \n\t消费: %^{消费类型}\t\t\t%^{ } 元\n\t收入: %^{收入类型}\t\t\t%^{ } 元\n\t账户: %^{账户类型}\n\n" :clock-in t))
-
+               "%<%Y/%m/%d> * %^{描述}\n    消费: %^{消费类型}        %^{ } 元\n    账户: %^{账户类型}\n" :clock-in t))
+(add-to-list 'org-capture-templates
+             '("bt" "收入" plain
+               (file+function "~/self/org/billing.org" find-month-tree)
+               "%<%Y/%m/%d> * %^{描述}\n    消费: %^{消费类型}        %^{ } 元\n    收入: %^{收入类型}        %^{ } 元\n    账户: %^{账户类型}\n" :clock-in t))
 
 (defun get-year-and-month ()
   (list (format-time-string "%Y年") (format-time-string "%m月")))
