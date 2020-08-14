@@ -21,7 +21,7 @@
 ;; (load-theme 'molokai t)
 (load-theme 'wombat t)
 
-(add-to-list 'load-path "~/.emacs.d/extra/extra")
+(add-to-list 'load-path "~/.emacs.d/extra")
 
 (require 'sr-speedbar)
 (setq speedbar-show-unknown-files t)
@@ -271,8 +271,12 @@
              '("c" "Contacts" entry (file "~/self/org/contacts.org")
                "* %^{姓名} %^{手机号}p %^{邮箱}p %^{住址}p\n\n  %?" :empty-lines 1))
 
-(org-babel-do-load-languages
-   'org-babel-load-languages
-    '((python . t)
-      (ledger . t)
-      (C . t)))
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+(with-eval-after-load 'org
+  (org-babel-do-load-languages
+     'org-babel-load-languages
+      '((python . t)
+        (ledger . t)
+        (C . t)))
+  (setq org-confirm-babel-evalute nil))
