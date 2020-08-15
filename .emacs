@@ -141,6 +141,9 @@
 ;; 打开 org-indent mode
 (setq org-startup-indented t)
 
+(setq-default org-display-custom-times t)
+(setq org-time-stamp-custom-formats '("<%Y/%m/%d %a>" . "<%Y/%m/%d %a %H:%M>"))
+
 ;; 设置 todo keywords
 (setq org-todo-keywords '((sequence "NEXT(n)" "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELLED(c@)")))
 
@@ -179,25 +182,52 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c a a") 'org-agenda)
 (setq org-default-notes-file
-      '("~/self/org/1_note.org"))
+      '("~/self/org/0_summary.org"))
 (use-package org-bullets
   :hook (org-mode . org-bullets-mode)
   :config
-  ;;(setq org-bullets-bullet-list '("■" "◆" "▲" "▶")))
-  (setq org-bullets-bullet-list '("◉" "❖" "✮" "✱" "✸" "■" "◆" "▲" "▶")))
+
+(defun my:org-agenda-time-grid-spacing ()
+  "Set different line spacing w.r.t. time duration."
+  (save-excursion
+    (let* ((background (alist-get 'background-mode (frame-parameters)))
+           (background-dark-p (string= background "dark"))
+           (colors (if background-dark-p
+                     (list "#aa557f" "DarkGreen" "DarkSlateGray" "DarkSlateBlue")
+                     (list "#F6B1C3" "#FFFF9D" "#BEEB9F" "#ADD5F7")))
+           pos
+           duration)
+      (nconc colors colors)
+      (goto-char (point-min))
+      (while (setq pos (next-single-property-change (point) 'duration))
+             (goto-char pos)
+             (when (and (not (equal pos (point-at-eol)))
+                        (setq duration (org-get-at-bol 'duration)))
+               (let ((line-height (if (< duration 30) 1.0 (+ 0.5 (/ duration 60))))
+                     (ov (make-overlay (point-at-bol) (1+ (point-at-eol)))))
+                 (overlay-put ov 'face `(:background ,(car colors)
+                                                     :foreground
+                                                     ,(if background-dark-p "black" "white")))
+                 (setq colors (cdr colors))
+                 (overlay-put ov 'line-height line-height)
+                 (overlay-put ov 'line-spacing (1- line-height))))))))
+
+(add-hook 'org-agenda-finalize-hook #'my:org-agenda-time-grid-spacing)
+;;(setq org-bullets-bullet-list '("■" "◆" "▲" "▶")))
+(setq org-bullets-bullet-list '("◉" "❖" "✮" "✱" "✸" "■" "◆" "▲" "▶")))
 
 (setq org-tag-alist '(
-                     (:startgroup . nil)
-                        ("工作" . ?w)
-                        ("公众号" . ?g)
-                     (:endgroup . nil)
-                     ("疫苗" . ?y)
-                     ("磐石" . ?p)
-                     ("技术" . ?j)
-                     ("生日" . ?s)
-                     ("读书" . ?d)
-                     ("提升" . ?t)
-                    ))
+                      (:startgroup . nil)
+                      ("工作" . ?w)
+                      ("公众号" . ?g)
+                      (:endgroup . nil)
+                      ("疫苗" . ?y)
+                      ("磐石" . ?p)
+                      ("技术" . ?j)
+                      ("生日" . ?s)
+                      ("读书" . ?d)
+                      ("提升" . ?t)
+                      ))
 
 ;; 记录时间
 (setq org-log-done 'time)
