@@ -187,8 +187,9 @@
 
 (add-hook 'org-agenda-finalize-hook #'ljg/org-agenda-time-grid-spacing)
 
+(global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-c a a") 'org-agenda)
+(global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-default-notes-file
       '("~/self/org/0_summary.org"))
 (use-package org-bullets
@@ -247,7 +248,7 @@
 (add-to-list 'org-capture-templates
              '("n" "日常记事" entry
                (file+headline "~/self/org/1_note.org" "记事")
-               "* %u %^{事情描述} \t\t:%^{关联人脉或者事件}:\n"))
+               "* %uT %^{事情描述} \t\t:%^{关联人脉或者事件}:\n"))
 
 (add-to-list 'org-capture-templates
              '("w" "网址收集" entry
@@ -261,7 +262,7 @@
                "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
 
 (add-to-list 'org-capture-templates
-             '("ts" "学习计划" entry
+             '("ts" "生活计划" entry
                (file+olp "~/self/org/3_task.org" "Reading" "Book")
                "* TODO %^{学习内容}\n%u\n%a\n" :clock-in t :clock-resume t))
 
@@ -320,3 +321,8 @@
         (ledger . t)
         (C . t)))
   (setq org-confirm-babel-evalute nil))
+
+(setq org-agenda-custom-commands
+      '(("f" "查看TODO条目（按创建时间排序）" todo "TODO"
+         ((org-agenda-sorting-strategy '(time-up priority-down))))))
+
