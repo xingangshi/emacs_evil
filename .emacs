@@ -337,3 +337,13 @@
     '(("f" "查看TODO条目（按创建时间排序）" todo "TODO"
      ((org-agenda-sorting-strategy '(priority-down tag-down))))))
 
+;; 优先级范围和默认任务的优先级
+(setq org-highest-priority ?A)
+(setq org-lowest-priority  ?D)
+(setq org-default-priority ?C)
+
+;; 优先级醒目外观
+;;set colours for priorities
+(setq org-priority-faces '((?A . (:foreground "#F0DFAF" :weight bold))
+                           (?B . (:foreground "LightSteelBlue"))
+                           (?D . (:foreground "OliveDrab"))))
