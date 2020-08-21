@@ -136,7 +136,11 @@
     ("c3c0a3702e1d6c0373a0f6a557788dfd49ec9e66e753fb24493579859c8e95ab" "d8dc153c58354d612b2576fea87fe676a3a5d43bcc71170c62ddde4a1ad9e1fb" default)))
  '(org-agenda-files
    (quote
-    ("~/self/org/1_note.org" "~/self/org/2_ledger.org" "~/self/org/3_task.org" "~/self/org/4_inbox.org")))
+    ("~/self/org/1_note.org"
+     "~/self/org/2_ledger.org"
+     "~/self/org/3_task.org"
+     "~/self/org/4_inbox.org"
+    )))
  '(package-selected-packages
    (quote
     (molokai-theme powerline paradox spinner lv parent-mode projectile pkg-info epl flx f highlight smartparens iedit anzu evil goto-chg undo-tree dash s bind-map bind-key packed helm avy helm-core popup async ## abyss-theme ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
@@ -347,3 +351,37 @@
 (setq org-priority-faces '((?A . (:foreground "#F0DFAF" :weight bold))
                            (?B . (:foreground "LightSteelBlue"))
                            (?D . (:foreground "OliveDrab"))))
+
+;; 设置日历
+(setq org-agenda-include-diary t
+    diary-file (locate-user-emacs-file "~/self/org/5_diary.org")
+    org-agenda-diary-file 'diary-file)
+
+(setq my-holidays
+    '(;;公历节日
+     (holiday-fixed 2 14 "情人节")
+     (holiday-fixed 9 10 "教师节")
+     (holiday-float 6 0 3 "父亲节")
+     ;; 农历节日
+     (holiday-chinese 1 1  "春节")
+     (holiday-chinese 1 15 "元宵节")
+     (holiday-solar-term   "清明" "清明节")
+     (holiday-chinese 5 5  "端午节")
+     (holiday-chinese 7 7  "七夕情人节")
+     (holiday-chinese 8 15 "中秋节")
+     ;;纪念日
+     (holiday-chinese 1 1 "我的生日")
+     ))
+
+(setq calendar-holidays my-holidays)  ;只显示我定制的节假日
+
+(defun m-diary-chinese-anniversary (lunar-month lunar-day &optional year mark)
+  (if year
+    (let* ((d-date (diary-make-date lunar-month lunar-day year))
+           (a-date (calendar-absolute-from-gregorian d-date))
+           (c-date (calendar-chinese-from-absolute a-date))
+           (cycle (car c-date))
+           (yy (cadr c-date))
+           (y (+ (* 100 cycle) yy)))
+      (diary-chinese-anniversary lunar-month lunar-day y mark))
+    (diary-chinese-anniversary lunar-month lunar-day year mark)))
