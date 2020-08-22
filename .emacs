@@ -260,9 +260,19 @@
 (setq org-capture-templates nil)
 
 (add-to-list 'org-capture-templates
-             '("n" "日常记事" entry
-               (file+headline "~/self/org/1_note.org" "记事")
-               "* %u %^{事情描述} \t\t:%^{关联人脉或者事件}:\n"))
+             '("s" "记事" entry
+               (file+headline "~/self/org/1_note.org" "2020-日常记事")
+               "** %^u %^{事情描述}\t\t\t:%^{关联人脉或者事件}:\n"))
+
+(add-to-list 'org-capture-templates
+             '("d" "纪念日（阳历）" entry
+               (file "~/self/org/5_diary.org")
+               "\n\n* %^{相关人物或事件}\n%% (diary-anniversary %^{月份} %^{日期} %^{年份}) %^{事件描述}，%d 周年/周岁（阳历）。\n"))
+
+(add-to-list 'org-capture-templates
+             '("c" "纪念日（农历）" entry
+               (file "~/self/org/5_diary.org")
+               "\n\n* %^{相关人物或事件}\n%% (m-diary-chinese-anniversary %^{月份} %^{日期} %^{年份}) %^{事件描述}，%d 周年/周岁（农历）。\n"))
 
 (add-to-list 'org-capture-templates
              '("w" "网址收集" entry
@@ -321,11 +331,6 @@
       (setq end (save-excursion (org-end-of-subtree t t))))
     (org-end-of-subtree)))
 
-
-(add-to-list 'org-capture-templates
-             '("c" "Contacts" entry (file "~/self/org/contacts.org")
-               "* %^{姓名} %^{手机号}p %^{邮箱}p %^{住址}p\n\n  %?" :empty-lines 1))
-
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 (with-eval-after-load 'org
@@ -355,7 +360,7 @@
 ;; 设置日历
 (setq org-agenda-include-diary t
     diary-file (locate-user-emacs-file "~/self/org/5_diary.org")
-    org-agenda-diary-file 'diary-file)
+    )
 
 (setq my-holidays
     '(;;公历节日
