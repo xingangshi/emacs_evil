@@ -139,7 +139,6 @@
     ("~/self/org/1_note.org"
      "~/self/org/2_ledger.org"
      "~/self/org/3_task.org"
-     "~/self/org/4_inbox.org"
     )))
  '(package-selected-packages
    (quote
@@ -264,46 +263,26 @@
                (file+headline "~/self/org/1_note.org" "2020-日常记事")
                "** %^u %^{事情描述}\t\t\t:%^{关联人脉或者事件}:\n"))
 
+(add-to-list 'org-capture-templates '("t" "新增纪念日"))
 (add-to-list 'org-capture-templates
-             '("d" "纪念日（阳历）" entry
+             '("ta" "纪念日（阳历）" entry
                (file "~/self/org/5_diary.org")
-               "\n\n* %^{相关人物或事件}\n%% (diary-anniversary %^{月份} %^{日期} %^{年份}) %^{事件描述}，%d 周年/周岁（阳历）。\n"))
+               "\n\n* %^{相关人物或事件}\n%%%^{直接回车}(diary-anniversary %^{月份} %^{日期} %^{年份}) %^{事件描述}，%d 周年/周岁（阳历）。\n"))
 
 (add-to-list 'org-capture-templates
-             '("c" "纪念日（农历）" entry
+             '("tc" "纪念日（农历）" entry
                (file "~/self/org/5_diary.org")
-               "\n\n* %^{相关人物或事件}\n%% (m-diary-chinese-anniversary %^{月份} %^{日期} %^{年份}) %^{事件描述}，%d 周年/周岁（农历）。\n"))
+               "\n\n* %^{相关人物或事件}\n%%%^{直接回车}(m-diary-chinese-anniversary %^{月份} %^{日期} %^{年份}) %^{事件描述}，%d 周年/周岁（农历）。\n"))
 
 (add-to-list 'org-capture-templates
-             '("w" "网址收集" entry
-               (file+headline "~/self/org/4_inbox.org" "网站")
-               "* %U %^{备注} \t\t%:annotation%:initial%?"))
-
-(add-to-list 'org-capture-templates '("t" "计划"))
-(add-to-list 'org-capture-templates
-             '("tr" "读书计划" entry
-               (file+olp "~/self/org/3_task.org" "读书计划" "想读")
-               "* TODO %^{书名}\n%u\n%a\n" :clock-in t :clock-resume t))
+             '("r" "生活计划" entry
+               (file+olp "~/self/org/3_task.org" "我的计划列表" "生活相关")
+               "\n\n* TODO %u [#%^{优先级 A - D}] %^{计划描述}\t\t:%^{关联人脉或者事件}:\nDEADLINE: %^t SCHEDULED: %^t\n\n" :empty-lines 1))
 
 (add-to-list 'org-capture-templates
-             '("ts" "学习计划" entry
-               (file+olp "~/self/org/3_task.org" "Reading" "Book")
-               "* TODO %^{学习内容}\n%u\n%a\n" :clock-in t :clock-resume t))
-
-(add-to-list 'org-capture-templates
-             '("tw" "工作计划" entry
-               (file+headline "~/self/org/3_task.org" "工作相关")
-               "* TODO %^{任务名}\n%u\n\n%a\n" :clock-in t :clock-resume t))
-
-(add-to-list 'org-capture-templates '("b" "记账 "))
-(add-to-list 'org-capture-templates
-             '("bc" "消费" plain
-               (file+function "~/self/org/billing.org" find-month-tree)
-               "%<%Y/%m/%d> * %^{描述}\n    消费: %^{消费类型}        %^{ } 元\n    账户: %^{账户类型}\n" :clock-in t))
-(add-to-list 'org-capture-templates
-             '("bt" "收入" plain
-               (file+function "~/self/org/billing.org" find-month-tree)
-               "%<%Y/%m/%d> * %^{描述}\n    消费: %^{消费类型}        %^{ } 元\n    收入: %^{收入类型}        %^{ } 元\n    账户: %^{账户类型}\n" :clock-in t))
+             '("w" "工作计划" entry
+               (file+olp "~/self/org/3_task.org" "我的计划列表" "工作相关")
+               "\n\n* TODO %u [#%^{优先级 A - D}] %^{计划描述}\t\t:%^{关联人脉或者事件}:\nDEADLINE: %^t SCHEDULED: %^t\n\n" :empty-lines 1))
 
 (defun get-year-and-month ()
   (list (format-time-string "%Y年") (format-time-string "%m月")))
