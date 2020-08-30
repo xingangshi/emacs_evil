@@ -139,6 +139,7 @@
     ("~/self/org/1_note.org"
      "~/self/org/2_ledger.org"
      "~/self/org/3_task.org"
+     "~/self/org/4_booklist.org"
     )))
  '(package-selected-packages
    (quote
@@ -283,6 +284,11 @@
              '("w" "工作计划" entry
                (file+olp "~/self/org/3_task.org" "我的计划列表" "工作相关")
                "\n\n* TODO %u [#%^{优先级 A - D}] %^{计划描述}\t\t:%^{关联人脉或者事件}:\nDEADLINE: %^t SCHEDULED: %^t\n\n" :empty-lines 1))
+
+(add-to-list 'org-capture-templates
+             '("b" "借书记录" entry
+              (file+olp "~/self/org/4_booklist.org" "读书买书借书列表" "借书列表")
+              "\n\n* %^u %^{图书馆名称}，借书总计 %^{借书总数} 本 [/]\t\t\t:借书:\n最后还书日 —— DEADLINE: %^t\n- [ ] 《%^{书单列表}》\n\n" :empty-lines 1))
 
 (defun get-year-and-month ()
   (list (format-time-string "%Y年") (format-time-string "%m月")))
