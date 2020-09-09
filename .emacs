@@ -16,6 +16,8 @@
 (require 'vim-modeline)
 (add-to-list 'find-file-hook 'vim-modeline/do)
 
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
 (global-linum-mode t)
 
 ;; (load-theme 'molokai t)
@@ -276,9 +278,14 @@
                "\n\n* %^{相关人物或事件}\n%%%^{直接回车}(m-diary-chinese-anniversary %^{月份} %^{日期} %^{年份}) %^{事件描述}，%d 周年/周岁（农历）。\n"))
 
 (add-to-list 'org-capture-templates
-             '("r" "生活计划" entry
+             '("d" "生活计划" entry
                (file+olp "~/self/org/3_task.org" "我的计划列表" "生活相关")
                "\n\n* TODO %u [#%^{优先级 A - D}] %^{计划描述}\t\t:%^{关联人脉或者事件}:\nDEADLINE: %^t SCHEDULED: %^t\n\n" :empty-lines 1))
+
+(add-to-list 'org-capture-templates
+             '("r" "读书计划" entry
+               (file+olp "~/self/org/3_task.org" "我的计划列表" "读书计划")
+                "\n\n* TODO %u #B %^{书名}\t\t%^{关联图书渠道}\nDEADLINE: %^t SCHEDULED: %^t\n\n" :empty-lines 1))
 
 (add-to-list 'org-capture-templates
              '("w" "工作计划" entry
