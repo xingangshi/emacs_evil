@@ -288,6 +288,11 @@
                 "\n\n* TODO %u #B %^{书名}\t\t%^{关联图书渠道}\nDEADLINE: %^t SCHEDULED: %^t\n\n" :empty-lines 1))
 
 (add-to-list 'org-capture-templates
+             '("x" "学习计划" entry
+               (file+olp "~/self/org/3_task.org" "我的计划列表" "学习计划")
+               "\n\n* TODO %u [#%^{优先级 A - D}] %^{学习计划描述}\t\t:%^{关联内容描述}:\nDEADLINE: %^t SCHEDULED: %^t\n\n" :empty-lines 1))
+
+(add-to-list 'org-capture-templates
              '("w" "工作计划" entry
                (file+olp "~/self/org/3_task.org" "我的计划列表" "工作相关")
                "\n\n* TODO %u [#%^{优先级 A - D}] %^{计划描述}\t\t:%^{关联人脉或者事件}:\nDEADLINE: %^t SCHEDULED: %^t\n\n" :empty-lines 1))
