@@ -142,7 +142,6 @@
      "~/self/org/2_ledger.org"
      "~/self/org/3_task.org"
      "~/self/org/4_booklist.org"
-     "~/self/org/5_diary.org"
      "~/self/org/6_trans_parents_ledger.org"
      "~/self/org/7_idcard_infos.org"
     )))
