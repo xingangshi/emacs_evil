@@ -266,7 +266,7 @@
 (add-to-list 'org-capture-templates
              '("s" "记事" entry
                (file+headline "~/self/org/1_note.org" "2020-日常记事")
-               "** %^u %^{事情描述}\t\t\t:%^{关联人脉或者事件}:\n"))
+               "*** %^u %^{事情描述}\t\t\t:%^{关联人脉或者事件}:\n"))
 
 (add-to-list 'org-capture-templates '("t" "新增纪念日"))
 (add-to-list 'org-capture-templates
@@ -365,7 +365,9 @@
     '(;;公历节日
      (holiday-fixed 2 14 "情人节")
      (holiday-fixed 9 10 "教师节")
+     (holiday-float 5 0 2 "母亲节")   ;5月的第二个星期天
      (holiday-float 6 0 3 "父亲节")
+     (holiday-float 11 4 4 "感恩节")   ;11 月的第 4 个星期四
      ;; 农历节日
      (holiday-chinese 1 1  "春节")
      (holiday-chinese 1 15 "元宵节")
