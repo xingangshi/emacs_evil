@@ -376,7 +376,7 @@
      (holiday-chinese 7 7  "七夕情人节")
      (holiday-chinese 8 15 "中秋节")
      ;;纪念日
-     (holiday-chinese 1 1 "我的生日")
+     (holiday-chinese 1 1 "自定义农历生日 1 月 1 日")
      ))
 
 (setq calendar-holidays my-holidays)  ;只显示我定制的节假日
