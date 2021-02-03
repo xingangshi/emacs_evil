@@ -272,12 +272,12 @@
 (add-to-list 'org-capture-templates
              '("ta" "纪念日（阳历）" entry
                (file "~/self/org/5_diary.org")
-               "\n\n* %^{相关人物或事件}\n%%%^{直接回车}(diary-anniversary %^{月份} %^{日期} %^{年份}) %^{事件描述}，%d 周年/周岁（阳历）。\n"))
+               "\n\n* %^{相关人物或事件}\n%%%^{直接回车}(diary-anniversary %^{月份} %^{日期} %^{年份}) %^{事件描述}，%d 周岁/周年（阳历）。\n"))
 
 (add-to-list 'org-capture-templates
              '("tc" "纪念日（农历）" entry
                (file "~/self/org/5_diary.org")
-               "\n\n* %^{相关人物或事件}\n%%%^{直接回车}(m-diary-chinese-anniversary %^{月份} %^{日期} %^{年份}) %^{事件描述}，%d 周年/周岁（农历）。\n"))
+               "\n\n* %^{相关人物或事件}\n%%%^{直接回车}(m-diary-chinese-anniversary %^{月份} %^{日期} %^{年份}) %^{事件描述}，%d 周岁/周年（农历）。\n"))
 
 (add-to-list 'org-capture-templates
              '("d" "生活计划" entry
@@ -381,13 +381,27 @@
 
 (setq calendar-holidays my-holidays)  ;只显示我定制的节假日
 
+;(defun m-diary-chinese-anniversary (lunar-month lunar-day &optional year mark)
+;  (if year
+;    (let* ((d-date (diary-make-date lunar-month lunar-day year))
+;           (a-date (calendar-absolute-from-gregorian d-date))
+;           (c-date (calendar-chinese-from-absolute a-date))
+;           (cycle (car c-date))
+;           (yy (cadr c-date))
+;           (y (+ (* 100 cycle) yy)))
+;      (diary-chinese-anniversary lunar-month lunar-day y mark))
+;    (diary-chinese-anniversary lunar-month lunar-day year mark)))
+
 (defun m-diary-chinese-anniversary (lunar-month lunar-day &optional year mark)
-  (if year
-    (let* ((d-date (diary-make-date lunar-month lunar-day year))
-           (a-date (calendar-absolute-from-gregorian d-date))
-           (c-date (calendar-chinese-from-absolute a-date))
-           (cycle (car c-date))
-           (yy (cadr c-date))
-           (y (+ (* 100 cycle) yy)))
-      (diary-chinese-anniversary lunar-month lunar-day y mark))
-    (diary-chinese-anniversary lunar-month lunar-day year mark)))
+  (let* ((ddate (diary-make-date lunar-month lunar-day year))
+      (dd (calendar-extract-day ddate))
+      (mm (calendar-extract-month ddate))
+      (yy (calendar-extract-year ddate))
+      (a-date (calendar-absolute-from-gregorian date))
+      (c-date (calendar-chinese-from-absolute a-date))
+      (mm2 (nth 2 c-date))
+      (dd2 (nth 3 c-date))
+      (y (calendar-extract-year date))
+      (diff (if year (- y year) 100)))
+    (and (> diff 0) (= mm mm2) (= dd dd2)
+        (cons mark (format entry diff (diary-ordinal-suffix diff))))))
