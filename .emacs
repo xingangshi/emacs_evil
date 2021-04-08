@@ -9,16 +9,24 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/"))
+             '("melpa" . "https://melpa.org/packages/"))
+;(add-to-list 'package-archives
+;             '("elpa" . "http://elpa.gnu.org/packages/" ))
+;(add-to-list 'package-archives
+;             '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
+
+(add-to-list 'load-path "/path/to/company")
+(autoload 'company-mode "company" nil t)
 
 (add-to-list 'load-path "~/.emacs.d/extra/emacs-vim-modeline")
 (require 'vim-modeline)
 (add-to-list 'find-file-hook 'vim-modeline/do)
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
-(global-linum-mode t)
+;(global-linum-mode t)
+
+(xterm-mouse-mode t)
 
 ;; (load-theme 'molokai t)
 (load-theme 'wombat t)
@@ -138,16 +146,10 @@
     ("c3c0a3702e1d6c0373a0f6a557788dfd49ec9e66e753fb24493579859c8e95ab" "d8dc153c58354d612b2576fea87fe676a3a5d43bcc71170c62ddde4a1ad9e1fb" default)))
  '(org-agenda-files
    (quote
-    ("~/self/org/1_note.org"
-     "~/self/org/2_ledger.org"
-     "~/self/org/3_task.org"
-     "~/self/org/4_booklist.org"
-     "~/self/org/6_trans_parents_ledger.org"
-     "~/self/org/7_idcard_infos.org"
-    )))
+    ("~/self/org/1_note.org" "~/self/org/2_ledger.org" "~/self/org/3_task.org" "~/self/org/4_booklist.org" "~/self/org/6_trans_parents_ledger.org" "~/self/org/7_idcard_infos.org")))
  '(package-selected-packages
    (quote
-    (molokai-theme powerline paradox spinner lv parent-mode projectile pkg-info epl flx f highlight smartparens iedit anzu evil goto-chg undo-tree dash s bind-map bind-key packed helm avy helm-core popup async ## abyss-theme ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (company auto-complete molokai-theme powerline paradox spinner lv parent-mode projectile pkg-info epl flx f highlight smartparens iedit anzu evil goto-chg undo-tree dash s bind-map bind-key packed helm avy helm-core popup async ## abyss-theme ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -337,6 +339,8 @@
      'org-babel-load-languages
       '((python . t)
         (ledger . t)
+        (ditaa . t)
+        (shell . t)
         (C . t)))
   (setq org-confirm-babel-evalute nil))
 (put 'scroll-left 'disabled nil)
