@@ -367,6 +367,7 @@
 
 (setq my-holidays
     '(;;公历节日
+     (holiday-fixed 1 1  "元旦")
      (holiday-fixed 2 14 "情人节")
      (holiday-fixed 9 10 "教师节")
      (holiday-float 5 0 2 "母亲节")   ;5月的第二个星期天
@@ -379,6 +380,9 @@
      (holiday-chinese 5 5  "端午节")
      (holiday-chinese 7 7  "七夕情人节")
      (holiday-chinese 8 15 "中秋节")
+     (holiday-chinese 12 8 "腊八节")
+     (holiday-chinese 12 23 "北方小年")
+     (holiday-chinese 12 24 "南方小年")
      ;;纪念日
      (holiday-chinese 1 1 "自定义农历生日 1 月 1 日")
      ))
@@ -405,7 +409,9 @@
       (c-date (calendar-chinese-from-absolute a-date))
       (mm2 (nth 2 c-date))
       (dd2 (nth 3 c-date))
-      (y (calendar-extract-year date))
-      (diff (if year (- y year) 100)))
+      (cycle (car c-date))
+      (yy2 (cadr c-date))
+      (y (+ (* 100 cycle) yy2))
+      (diff (if year (- (- y year) 5817) 100)))
     (and (> diff 0) (= mm mm2) (= dd dd2)
         (cons mark (format entry diff (diary-ordinal-suffix diff))))))
