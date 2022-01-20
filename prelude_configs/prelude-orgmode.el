@@ -2,10 +2,6 @@
                             gnuplot
                             gnuplot-mode))
 
-(custom-set-variables
- '(org-agenda-files
-   '("~/self/org/1_note.org" "~/self/org/2_ledger.org" "~/self/org/3_task.org" "~/self/org/4_booklist.org" "~/self/org/6_trans_parents_ledger.org" "~/self/org/7_idcard_infos.org")))
-
 ;; 打开 org-indent mode
 (setq org-startup-indented t)
 
@@ -60,7 +56,6 @@
 
 (setq org-default-notes-file
       '("~/self/org/0_summary.org"))
-
 
 (use-package org-bullets
   :hook (org-mode . org-bullets-mode)

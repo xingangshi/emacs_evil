@@ -46,4 +46,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:background nil)))))
-(load-theme 'monokai t)
+
+;; 需要 emacs 安装好以后，手动安装 monokai-theme  `M-x package-install RET monokai-theme RET`
+;; (load-theme 'monokai t)
