@@ -65,3 +65,9 @@ M-x package-install RET monokai-theme RET
 ```lisp
 (load-theme 'monokai t)
 ```
+
+## 学习进阶
+
+## [Emacs 快捷键及 Org Mode 笔记](https://github.com/xingangshi/org_mode)
+
+## [Org mode 相关资料](https://www.geekpanshi.com/panshi/study/org_modes.html)
