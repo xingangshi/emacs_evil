@@ -45,3 +45,23 @@ docker run cmd.cat/emacs emacs
 > My emacs with prelude Emacs and config for emacs.
 >
 > One-step for install and config emcas by run [`bash install_prelude_emacs.sh`](/install_prelude_emacs.sh)
+
+## 主题安装和使用
+
+### 安装主题
+
+需要 emacs 安装好以后，手动安装 `monokai-theme` 或其他主题，
+
+```BASH
+M-x package-install RET monokai-theme RET
+```
+
+### 使用主题
+
+- 打开 `Emacs` 后输入命令 `M-x enable-thme RET monokai RET`
+
+- 在配置文件里面配置如下, **Emacs evil** 配置在 `~/.emacs` 文件中， **Prelude Emacs** 配置在 `~/.emacs.d/personal/custom.el` ：
+
+```lisp
+(load-theme 'monokai t)
+```
