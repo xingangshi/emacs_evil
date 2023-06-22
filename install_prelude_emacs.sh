@@ -1,4 +1,5 @@
-curl -L https://github.com/bbatsov/prelude/raw/master/utils/installer.sh | sh
+#curl -L https://github.com/bbatsov/prelude/raw/master/utils/installer.sh | sh
+bash prelude_installer.sh
 
 cp prelude_configs/init.el ~/.emacs.d/init.el
 cp -rf prelude_configs/* ~/.emacs.d/personal/
