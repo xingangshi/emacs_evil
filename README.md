@@ -34,6 +34,11 @@ Docker
 docker run cmd.cat/emacs emacs
 ```
 
+## 打开 Emacs
+
+1. GUI 模式，命令行输入 `$ emacs`
+2. 终端模式，命令行输入 `$ emacs -nw`
+
 ## [Emacs evil](https://github.com/emacs-evil/evil) 使用
 
 > My emacs with evil mode and config for emacs.
