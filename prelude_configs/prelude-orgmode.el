@@ -213,6 +213,7 @@
     '(;;公历节日
      (holiday-fixed 1 1  "元旦")
      (holiday-fixed 2 14 "情人节")
+     (holiday-fixed 6 1  "儿童节")
      (holiday-fixed 9 10 "教师节")
      (holiday-float 5 0 2 "母亲节")   ;5月的第二个星期天
      (holiday-float 6 0 3 "父亲节")
