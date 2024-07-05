@@ -15,7 +15,7 @@
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(org-agenda-files
-   '("~/self/org/1_note.org" "~/self/org/2_ledger.org" "~/self/org/3_task.org" "~/self/org/4_booklist.org" "~/self/org/6_trans_parents_ledger.org" "~/self/org/7_idcard_infos.org"))
+   '("~/self/org/1_note.org" "~/self/org/2_ledger.org" "~/self/org/3_task.org" "~/self/org/4_booklist.org" "~/self/org/5_diary.org" "~/self/org/6_trans_parents_ledger.org" "~/self/org/7_idcard_infos.org"))
  '(package-selected-packages
    '(evil ctags-update company-ctags git solarized-theme monokai-theme sublime-themes zweilight-theme zzz-to-char neotree company-jedi kotlin-mode treemacs zop-to-char zenburn-theme yaml-mode which-key web-mode volatile-highlights use-package undo-tree super-save smartrep smartparens ron-mode rainbow-mode rainbow-delimiters projectile org-bullets operate-on-number nlinum move-text magit lsp-ui json-mode js2-mode imenu-anywhere hl-todo guru-mode gnuplot-mode gnuplot gitignore-mode gitconfig-mode git-timemachine gist flycheck-rust expand-region exec-path-from-shell elisp-slime-nav editorconfig easy-kill discover-my-major diminish diff-hl crux counsel company-anaconda coffee-mode cargo browse-kill-ring anzu ag ace-window))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
