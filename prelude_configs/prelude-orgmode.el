@@ -219,15 +219,15 @@
      (holiday-float 6 0 3 "父亲节")
      (holiday-float 11 4 4 "感恩节")   ;11 月的第 4 个星期四
      ;; 农历节日
-     (holiday-chinese 1 1  "春节")
-     (holiday-chinese 1 15 "元宵节")
+     (holiday-chinese 1 1  "春节，正月初一")
+     (holiday-chinese 1 15 "元宵节，正月十五")
      (holiday-solar-term   "清明" "清明节")
      (holiday-chinese 5 5  "端午节")
      (holiday-chinese 7 7  "七夕情人节")
      (holiday-chinese 8 15 "中秋节")
-     (holiday-chinese 12 8 "腊八节")
-     (holiday-chinese 12 23 "北方小年")
-     (holiday-chinese 12 24 "南方小年")
+     (holiday-chinese 12 8 "腊八节，腊月初八")
+     (holiday-chinese 12 23 "北方小年，腊月二十三")
+     (holiday-chinese 12 24 "南方小年，腊月二十四")
      ;;纪念日
      (holiday-chinese 1 1 "自定义农历生日 1 月 1 日")
      ))
