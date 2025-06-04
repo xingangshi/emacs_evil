@@ -215,6 +215,7 @@
      (holiday-fixed 2 14 "情人节")
      (holiday-fixed 6 1  "儿童节")
      (holiday-fixed 9 10 "教师节")
+     (holiday-fixed 6 4 "六四纪念日")
      (holiday-float 5 0 2 "母亲节")   ;5月的第二个星期天
      (holiday-float 6 0 3 "父亲节")
      (holiday-float 11 4 4 "感恩节")   ;11 月的第 4 个星期四
