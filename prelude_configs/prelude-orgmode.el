@@ -225,6 +225,7 @@
      (holiday-solar-term   "清明" "清明节")
      (holiday-chinese 5 5  "端午节")
      (holiday-chinese 7 7  "七夕情人节")
+     (holiday-chinese 7 15  "中元节，七月十五日")
      (holiday-chinese 8 15 "中秋节")
      (holiday-chinese 12 8 "腊八节，腊月初八")
      (holiday-chinese 12 23 "北方小年，腊月二十三")
